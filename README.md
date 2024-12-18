@@ -464,19 +464,74 @@ Array.prototype.map = function(callback, context) {
 ```
 [3 Kata](https://www.codewars.com/kata/javascript-from-the-inside-number-2-filter)
 ```javascript
-
+Array.prototype.filter = function(func, thisArg){
+  if(this === '' || this === [] || this === undefined) return []
+  let result = []
+  let lengths = this.length
+  for(let i = 0; i < lengths ; i++){
+    if(this[i]){
+      let res = ''
+    if(thisArg  != undefined) {
+      res = func.call(thisArg, this[i], i, this)
+    } else {
+        res = func(this[i], i, this)
+    }
+    if(res){
+       if(i in this)
+        result.push(this[i])
+    }
+    } else {
+      if(i in this)
+        result.push(this[i])
+    }
+  }
+  return result
+}
 ```
 [4 Kata](https://www.codewars.com/kata/power-bind)
 ```javascript
+Function.prototype.bind = function (ctx) {
 
+  var originalFn = this;
+  
+  var func = function() {
+      return originalFn.apply(ctx, arguments);
+  };
+  
+  func.bind = function(newCtx) {
+      return Function.prototype.bind.call(originalFn, newCtx);
+  };
+  
+  return func;
+};
 ```
 [5 Kata](https://www.codewars.com/kata/closures-and-scopes)
 ```javascript
+function createFunctions(n) {
+  var callbacks = [];
 
+  for (let i=0; i<n; i++) {
+    callbacks.push(function() {
+      return i;
+    });
+  }
+  
+  return callbacks;
+}
 ```
 [6 Kata](https://www.codewars.com/kata/can-you-keep-a-secret)
 ```javascript
+function createSecretHolder(secret) {
+	return {
+		getSecret() {
+			return secret
+		},
 
+		setSecret(key) {
+			secret = key
+		}
+	}
+}
 ```
 ## <center>_Вывод_</center>
 Таким образом, мне удалось поработать с js, писал много функций, закрепил работу с массивами
