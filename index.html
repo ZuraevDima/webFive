@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 laba</title>
+</head>
+<body>
+    <script>
+        function one(){
+           const user = {};
+           user.name = "John";
+           user.surname = "Smith";
+           user.name = "Peter";
+           delete user.name;
+           alert("user.surname is " + user.surname);
+        }
+        function two(){
+            function isEmpty(obj) { 
+                for (let key in obj) { 
+                    return false; 
+                } 
+
+                return true; 
+            }
+
+            let schedule = {};
+            alert( isEmpty(schedule) ); // true
+            schedule["8:30"] = "get up";
+            alert( isEmpty(schedule) ); // false
+        }
+        function three(){
+            const user2 = {
+                name: "John"
+            };
+            alert(user2.name); //пишет John
+            user2.name = "Pete"; 
+            alert(user2.name); // пишет Pete
+        }
+        function four(){
+            let salaries = {
+                John: 100,
+                Ann: 160,
+                Pete: 130
+            }              
+
+            let sum = 0;
+            for (let key in salaries) {
+                sum += salaries[key];  
+            }
+            alert(sum);
+        }
+        function five(){
+            function multiplyNumeric(obj){
+                for(let key in obj){
+                    if(typeof obj[key] === 'number')
+                        obj[key] *= 2;
+                }
+            }
+            let menu = {
+                width: 200,
+                height: 300,
+                title: "My menu"
+            };
+            
+            multiplyNumeric(menu);
+            for(let key in menu){
+                alert(menu[key]);
+            }
+        }
+        function six(){
+            let fruits = ["Яблоки", "Груша", "Апельсин"];
+
+            let shoppingCart = fruits;
+            shoppingCart.push("Банан");
+            // fruits - ["Яблоки", "Груша", "Апельсин", "Банан"];
+            alert(fruits.length); // 4   
+        }
+        function seven(){
+            let styles = ['Джаз', 'Блюз'];
+            alert(styles);
+            styles.push('Рок-н-ролл');
+            alert(styles);
+            styles[Math.floor(styles.length / 2)] = 'Классика';
+            alert(styles);
+            styles.shift();
+            alert(styles);
+            styles.unshift('Рэп', 'Регги');
+            alert(styles);  
+        }
+        function eight() {
+            let arr = ["a", "b"];
+            arr.push(function() {
+              alert( this );
+            })
+            alert(arr[2]()); // undefined
+        }
+        function nine(){
+            let array = [];
+
+            while(true)
+            {
+                var input = prompt("Введите число");
+                if (input == null || input == isNaN(input))
+                    break;
+                else
+                    array.push(parseInt(input));
+            }
+
+            let sum = 0;
+            for (let i = 0; i < array.length; i++)
+                sum += array[i];
+
+            alert('Сумма элементов массива = ' + sum);
+        }
+        function ten(){
+            var arr = [1, 2, 3];
+                /*[-1, 2, 3, -9] = 5 
+                [2, -1, 2, 3, -9] = 6  
+                [-1, 2, 3, -9, 11] = 11      
+                [-2, -1, 1, 2] = 3      
+                [100, -9, 2, -3, 5] = 100
+                [1, 2, 3] = 6 (берём все)*/
+            alert("Исходный массив: " + arr);
+            function getMaxSubSum(arr) {
+                let newSum = 0, maxSum = 0;
+                for (let i = 0; i < arr.length; i++) {
+                    newSum += arr[i];
+                    if (arr[i] > newSum) 
+                        newSum = arr[i];
+                    if (newSum > maxSum) 
+                        maxSum = newSum;
+                }
+                return maxSum;
+            }
+            alert(getMaxSubSum(arr));
+        }
+        function eleven(){
+           let arr = [1,2,3,4,2,5,6,2,7,8,2,3,1,1,8];
+           const counts = {};
+           for (let i = 0; i < arr.length; i++){
+            counts[arr[i]] = counts[arr[i]] ? counts[arr[i]] + 1 : 1; 
+            //если элемент уже был встречен, то увеличиваем значение, иначе устанавливаем значение 1
+           }
+
+           for (let key in counts) {
+            if (counts[key] > 2){
+                arr = arr.filter(num => num !== parseInt(key));
+            }
+           }
+           alert(arr);
+        }
+        function twelve(){
+            function Foo(){
+                let largestOdd = arr[0];
+                let index = 0;
+                for(let i = 0; i < arr.length; i++){
+                    if(arr[i] % 2 != 0 && arr[i] > largestOdd)
+                        largestOdd = arr[i];
+                        index = i;
+                }
+            
+                for (let i = 0; i < 3; i++) {
+                    if (index === arr.length - 1) 
+                        break;
+                    let temp = arr[index + 1];
+                    arr.splice(index + 1, 1);
+                    arr.splice(index, 0, temp);
+                    index++;
+                }
+
+                let temp = arr[index - 1];
+                arr.splice(index - 1, 1);
+                arr.splice(index, 0, temp);
+            }
+
+            let arr = [1, 2, 3, 65, 72, 81, 12, 10];
+            alert("Исходный массив: " + arr);
+            Foo(arr);
+            alert("Новый массив: " + arr); 
+        }
+        function thirteen(){
+            const arr = [1, -2, 3, -4, 5, -6, 7, -8, 9]; 
+            let neg_sum = 0; 
+            for (let i = 0; i < arr.length; i++) { 
+            if (arr[i] < 0) { 
+                neg_sum += arr[i]; 
+            } 
+        }
+            alert('Сумма отрицательных элементов массива: ' + neg_sum); 
+        }
+        function fourteen(){
+            const arr = [1, 2, 3, 4, 5, 6, 7];
+            let res = 1;
+            for (let i = 1; i < arr.length; i += 2)
+            {
+                res *= arr[i];
+            }
+            alert('Произведение элементов массива с нечетными номерами: ' + res); //2*4*6 = 6*8=48
+        }
+        function fifteen(){
+            const massive = [1, 2, 3, 0, 4, 5, 6, 0, 7, 8, 9];
+            let onezero = -1;
+            let twozero = -1;
+            let sum = 0;
+            for (let i = 0; i < massive.length; i++) {
+            if (massive[i] === 0) {
+            if (onezero === -1) {
+                onezero = i;
+            } else if (twozero === -1) {
+                twozero = i;
+                break;
+            }
+            } else if (onezero !== -1 && twozero === -1) {
+                sum += massive[i];
+            }
+            }
+            if (onezero !== -1 && twozero !== -1) {
+                alert('Сумма элементов между двумя первыми нулями: ' + sum);
+            } else {
+                alert('Двух нулей в массиве не найдено, сумма равна 0.');
+            }
+        }
+        function sixteen(){
+            const massive = [10, 5, 20, 8, 15, 30, 25, 12, 52, -52];
+            let biggestEl = massive[0];
+            for (let i = 1; i < massive.length; i++) {
+                if (massive[i] > biggestEl) {
+                    biggestEl = massive[i];
+                }
+            }
+            alert('Наибольший элемент в массиве: ' + biggestEl);
+        }
+        function seventeen(){
+            const arr = [11, 7, 15, 2, 9, 6, 8, 10, 4];
+            let lowest_chet = Infinity;
+            let firstEl = arr[0];
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] % 2 === 0 && arr[i] < lowest_chet) {
+                    lowest_chet = arr[i];
+                }
+            }
+            if (lowest_chet === Infinity) {
+                lowest_chet = firstEl;
+            }
+            alert('Наименьший чётный элемент массива: ' + lowest_chet);
+        }
+        function eighteen(){
+            const arr = [3, 0, 1, 0, 2, 0, 4, 5, 0, 6];
+            function sortzero(arr) {
+                return arr.sort((a, b) => {
+                    if (a === 0 && b !== 0) return -1;
+                    if (b === 0 && a !== 0) return 1;
+                    return 0;
+                });
+            }
+            const sortmass = sortzero(arr);
+            alert('Сначала нулевые, потом все остальные:' + sortmass);
+        }
+        function nineteen(){
+            const arr = [10, 5, 20, 8, 15, 30, 25, 12];
+            let minEl = arr[0];
+            let maxEl = arr[0];
+            let indMin = 0;
+            let indMax = 0;
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i] < minEl) {
+                    minEl = arr[i];
+                    indMin = i;
+                }
+                if (arr[i] > maxEl) {
+                    maxEl = arr[i];
+                    indMax = i;
+                }
+            }
+            const sumIndex = indMin + indMax;
+            alert('Сумма номеров минимального и максимального элементов: ' + sumIndex);
+        }
+        function twenty() {
+            const arr = [10, -5, 3, -7, 2, -9]; 
+            const minAbsValue = Math.min(...arr.map(Math.abs)); 
+            alert('Минимальный по модулю элемент массива ' + minAbsValue);
+        }
+        function twenty_one(){
+            var arr = [];
+            for (var i = 0; i < 10; i++) {
+                arr.push(Math.floor(Math.random() * 21) - 10);
+            }
+            alert("Исходный массив: " + arr);
+            var firstHalf = arr.slice(0, Math.floor(arr.length / 2));
+            firstHalf.reverse();
+            // Реверс для 2-ой половины массива
+            var secondHalf = arr.slice(Math.floor(arr.length / 2));
+            secondHalf.reverse();
+            // Объединяем оба реверсированных массива
+            var reversedArray = firstHalf.concat(secondHalf);
+            alert("Массив после реверса 1-й и 2-й половины: " + reversedArray);    
+        }
+        function twenty_two(){
+            var arr = [];
+            for (var i = 0; i < 12; i++) {
+                arr.push(Math.floor(Math.random() * 25) - 12);
+            }
+            alert("Исходный массив: " + arr);
+            for (var i = 0; i < 4; i++) {
+                arr.unshift(arr.pop());
+            }
+            alert("Массив после сдвига на 4 элемента вправо: " + arr);
+        }
+    </script>
+    <button onclick="one()">Задание 1</button>
+    <button onclick="two()">Задание 2</button>
+    <button onclick="three()">Задание 3</button>    
+    <button onclick="four()">Задание 4</button>
+    <button onclick="five()">Задание 5</button>
+    <button onclick="six()">Задание 6</button>
+    <button onclick="seven()">Задание 7</button>
+    <button onclick="eight()">Задание 8</button>
+    <button onclick="nine()">Задание 9</button>
+    <button onclick="ten()">Задание 10</button><br><br>
+    <button onclick="eleven()">Задание 11</button>
+    <button onclick="twelve()">Задание 12</button>
+    <button onclick="thirteen()">Задание 13</button>
+    <button onclick="fourteen()">Задание 14</button>
+    <button onclick="fifteen()">Задание 15</button>
+    <button onclick="sixteen()">Задание 16</button>
+    <button onclick="seventeen()">Задание 17</button>
+    <button onclick="eighteen()">Задание 18</button>
+    <button onclick="nineteen()">Задание 19</button>
+    <button onclick="twenty()">Задание 20</button><br><br>
+    <button onclick="twenty_one()">Задание 21</button>
+    <button onclick="twenty_two()">Задание 22</button>
+</body>
+</html>
